@@ -1,4 +1,4 @@
 #### Features
 
-* **Closure.extend**
-* **Closure.bind**
+* **Factory: SpinnerConfig**
+* **Directive: spinner**

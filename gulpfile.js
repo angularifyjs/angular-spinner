@@ -2,6 +2,7 @@ var pkg = require('./package.json');
 
 var clean = require('gulp-clean');
 var concat = require('gulp-concat');
+var connect = require('gulp-connect');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
@@ -57,7 +58,7 @@ gulp.task('test', function(done) {
 
 gulp.task('uglify', function(done) {
   return gulp.src('./src/**/*.js')
-    .pipe(concat('closure.js'))
+    .pipe(concat('spinner.js'))
     .pipe(ngAnnotate())
     .pipe(header(banner, {
       pkg: pkg,
@@ -65,11 +66,15 @@ gulp.task('uglify', function(done) {
     }))
     .pipe(gulp.dest('./dist'))
 
-    .pipe(concat('closure.min.js'))
+  .pipe(concat('spinner.min.js'))
     .pipe(uglify())
     .pipe(header(banner, {
       pkg: pkg,
       releaseDate: (new Date()).toISOString().slice(0, 10)
     }))
     .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('sample', function() {
+  connect.server();
 });
