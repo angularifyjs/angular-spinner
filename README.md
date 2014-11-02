@@ -38,7 +38,7 @@ The `spinner` module is now installed. It exposes the `SpinnerConfig` factory an
 
 #### Directive
 
-``html
+```html
 <div spinner="">
   <img src="./images/wait_icon.gif" />
 </div>
