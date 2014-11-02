@@ -1,8 +1,11 @@
 #!/bin/bash
 
-ARG_DEFS=(init prepare publish clearup)
-REPO="git@github.com:angularifyjs/bower-angular-closure.git"
-NAME="angular-closure"
+# Usage:
+# ./publish.sh
+
+ARG_DEFS=(init prepare publish cleanup)
+REPO="git@github.com:angularifyjs/bower-angular-spinner.git"
+NAME="bower-angular-spinner"
 
 function init {
   ROOT_DIR=$(resolveDir ../..)
@@ -12,60 +15,61 @@ function init {
 function prepare {
   echo "------------------------------------------------"
   echo "-- Run test & build"
-  echo "------------------------------------------------"
   cd $ROOT_DIR
   npm install
   bower install
   gulp test
   gulp build
 
+  echo ""
   echo "------------------------------------------------"
   echo "-- Clear up publish directory"
-  echo "------------------------------------------------"
   cd $ROOT_DIR
   rm -rf .publish
   mkdir .publish
 
+  echo ""
   echo "------------------------------------------------"
   echo "-- Checkout bower repo"
-  echo "------------------------------------------------"
   cd .publish
   git clone $REPO 
   
+  echo ""
   echo "------------------------------------------------"
   echo "-- Updating version in $NAME to $NEW_VERSION"
-  echo "------------------------------------------------"
   cd bower-$NAME
   replaceJsonProp "bower.json" "version" ".*" $NEW_VERSION   
 
+  echo ""
   echo "------------------------------------------------"
   echo "-- Remove old scripts and copy new scripts"
-  echo "------------------------------------------------"
-  rm -rf closure*
+  rm -rf spinner*
+  rm -rf sample
   cp -R ../../LICENSE .
   cp -R ../../dist/* .
+  cp -R ../../sample .
 }
 
 function publish {
+  echo ""
   echo "------------------------------------------------"
   echo "-- Commit bower repo"
-  echo "------------------------------------------------"
   git add --all
   git commit -m "v$NEW_VERSION"
-  git tag v$NEW_VERSION   
+  git tag v$NEW_VERSION
 
+  echo ""
   echo "------------------------------------------------"
   echo "-- publish"
-  echo "------------------------------------------------"
   cd $ROOT_DIR/.publish/bower-$NAME
   git push origin master
   git push origin v$NEW_VERSION
 }
 
-function clearup {
+function cleanup {
+  echo ""
   echo "------------------------------------------------"
-  echo "-- clear up"
-  echo "------------------------------------------------"
+  echo "-- clean up"
   cd $ROOT_DIR
   rm -rf .publish
 }
