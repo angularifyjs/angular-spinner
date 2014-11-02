@@ -20,7 +20,7 @@ bower install bower-angular-spinner
 Include js files into your web page:
 
 ```html
-<script type="text/javascript" src="[...]/angular-spinner[.min].js"></script>
+<script type="text/javascript" src="[...]/spinner[.min].js"></script>
 ```
 
 Add dependency to your app module:
