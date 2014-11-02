@@ -5,7 +5,7 @@
 
 ARG_DEFS=(init prepare publish cleanup)
 REPO="git@github.com:angularifyjs/bower-angular-spinner.git"
-NAME="bower-angular-spinner"
+NAME="angular-spinner"
 
 function init {
   ROOT_DIR=$(resolveDir ../..)
